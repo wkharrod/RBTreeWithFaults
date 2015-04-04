@@ -297,9 +297,11 @@ public class RBTreeWithFaults
                     }
                     //case 3: z is a right child and its uncle is red. need to left rotate
                     z.Parent.Parent.Black = false;
+                    z.Parent.Black = true; /* Fault found! Didn't set parent to Black since grandparent set to Red */
                     leftRotate(z.Parent.Parent);
 
-                    counter++;
+                    //counter++; /* Fault found! Only added for the grandparent's color change, neglecting parent's color change */
+                    counter += 2;
                 }
             }
         }
@@ -434,6 +436,7 @@ public class RBTreeWithFaults
             transplate(z,y);
             y.Left = z.Left;
             y.Black = z.Black;
+            y.Left.Parent = y; /* Fault found! Didn't set y's left child to have y as parent */
         }
 
         if(isBlackOriginalY)
@@ -556,6 +559,11 @@ public class RBTreeWithFaults
      */
     public String min()
     {
+        /* Fault found! Didn't check if tree is empty to avoid null pointer exception */
+        if(this.empty())
+        {
+            return null;
+        }
         return minimumNode(this.Root.Left).Value;
     }
 
@@ -797,7 +805,8 @@ public class RBTreeWithFaults
         //count from both sides
         if(!isNullNode(node.Left) && !isNullNode(node.Right))
         {
-            return 2 + sizeCalc(node.Left) + sizeCalc(node.Right);
+            //return 2 + sizeCalc(node.Left) + sizeCalc(node.Right); /* Fault found! Added 2 instead of just this 1 node to size */
+            return 1 + sizeCalc(node.Left) + sizeCalc(node.Right);
         }
 
         //count with higher side
