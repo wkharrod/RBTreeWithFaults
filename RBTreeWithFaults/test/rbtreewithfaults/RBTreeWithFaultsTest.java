@@ -908,6 +908,40 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("result == "+result);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of isInfinityNode - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void isInfinityNode1() {
+        Boolean debugging = false;
+        System.out.println("isInfinityNode - 1");
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        Boolean expResult = true;
+        Boolean result = tree.isInfinityNode(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of isNullNode - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void isNullNode1() {
+        Boolean debugging = false;
+        System.out.println("isNullNode - 1");
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        Boolean expResult = false;
+        Boolean result = tree.isNullNode(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
     
     /**
      * Test of max method, of class RBTreeWithFaults.
@@ -961,18 +995,6 @@ public class RBTreeWithFaultsTest {
         String[] expResult = null;
         String[] result = instance.valuesToArray();
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of print method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testPrint() {
-        System.out.println("print");
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        instance.print();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
