@@ -456,13 +456,14 @@ public class RBTreeWithFaults
      */
     public int deleteFixup(RBNode x)
     {
-        Boolean debugging = true;
+        Boolean debugging = false;
         //number of color changes
         int counter = 0;
         if(debugging) System.out.println("deleteFixup(RBNode x) -- 1");
         //run until x is the tree root and as long as x is black
         while(x != this.Root.Left && x.Black)
         {
+            if(debugging) System.out.println("deleteFixup(RBNode x) -- 2"); // can't put 2 in while condition
             if(debugging) System.out.println("deleteFixup(RBNode x) -- 3");
             if(x == x.Parent.Left)
             {
@@ -521,6 +522,7 @@ public class RBTreeWithFaults
                 if(debugging) System.out.println("deleteFixup(RBNode x) -- 11");
                 //x is a right child
                 RBNode w = x.Parent.Left;
+                if(debugging) System.out.println("w.Value == " + w.Value);
                 if(!w.Black){
                     if(debugging) System.out.println("deleteFixup(RBNode x) -- 12");
                     //case 1
@@ -568,6 +570,7 @@ public class RBTreeWithFaults
                 }
             }
         }
+        if(debugging) System.out.println("deleteFixup(RBNode x) -- 2"); // can't put 2 in while condition
         if(debugging) System.out.println("deleteFixup(RBNode x) -- 18");
         if(x.Black == false)
         {
@@ -584,16 +587,22 @@ public class RBTreeWithFaults
      *  O(log(n))
      * public String min()
      *
-     * Returns the value of the item with the smallest key in the tree,
+     * @return the value of the item with the smallest key in the tree,
      * or null if the tree is empty
      */
     public String min()
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("min() -- 1");
+        
         /* Fault found! Didn't check if tree is empty to avoid null pointer exception */
         if(this.empty())
         {
+            if(debugging) System.out.println("min() -- 2");
             return null;
         }
+        
+        if(debugging) System.out.println("min() -- 3");
         return minimumNode(this.Root.Left).Value;
     }
 
@@ -603,19 +612,27 @@ public class RBTreeWithFaults
      * @param node - the node to start looking from
      * @return the minimal node of the tree
      */
-    private static RBNode minimumNode(RBNode node)
+    public static RBNode minimumNode(RBNode node)
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("minimumNode(RBNode node) -- 1");
         if(isNullNode(node))
         {
+            if(debugging) System.out.println("minimumNode(RBNode node) -- 2");
             return null;
         }
 
+        
+        if(debugging) System.out.println("minimumNode(RBNode node) -- 3");
         //next smaller node is null node so this is the minimal node
         if(isNullNode(node.Left))
         {
+            if(debugging) System.out.println("minimumNode(RBNode node) -- 4");
             return node;
         }
-
+        
+        if(debugging) System.out.println("minimumNode(RBNode node) -- 5");
         return minimumNode(node.Left);
     }
 
@@ -625,8 +642,11 @@ public class RBTreeWithFaults
      * @param node - the node to check
      * @return true if it is an infinity node. O.W false
      */
-    private boolean isInfinityNode(RBNode node)
+    public boolean isInfinityNode(RBNode node)
     {
+        Boolean debugging = true;
+        
+        if(debugging) System.out.println("isInfinityNode(RBNode node) -- 1");
         return node.Key == Integer.MAX_VALUE;
     }
 
@@ -636,7 +656,7 @@ public class RBTreeWithFaults
      * @param node - the node to check
      * @return true if it is an null node. O.W false
      */
-    private static boolean isNullNode(RBNode node)
+    public static boolean isNullNode(RBNode node)
     {
         return node.Key == Integer.MIN_VALUE;
     }
@@ -645,7 +665,7 @@ public class RBTreeWithFaults
      *  O(log(n))
      * public String max()
      *
-     * Returns the value of the item with the largest key in the tree,
+     * @return  the value of the item with the largest key in the tree,
      * or null if the tree is empty
      */
     public String max()
@@ -680,7 +700,7 @@ public class RBTreeWithFaults
      *  O(n)
      * public int[] keysToArray()
      *
-     * Returns a sorted array which contains all keys in the tree,
+     * @return a sorted array which contains all keys in the tree,
      * or an empty array if the tree is empty.
      */
     public int[] keysToArray()
@@ -699,7 +719,7 @@ public class RBTreeWithFaults
      * @param strArr - array of string values (that can be parsed into integers)
      * @return array of the same values cast as int
      */
-    private int[] ArrayOfStringsToArrayOfInts(String[] strArr)
+    public int[] ArrayOfStringsToArrayOfInts(String[] strArr)
     {
         int[] arr = new int[strArr.length];
         for(int i=0; i<= strArr.length;i++)
@@ -716,7 +736,7 @@ public class RBTreeWithFaults
      * @param key - if true returns the string with keys elements else return the string with value elements
      * @return a string with values\keys seperated with ,
      */
-    private String ElementsToString(RBNode node,boolean key)
+    public String ElementsToString(RBNode node,boolean key)
     {
         if(isNullNode(node))
         {
@@ -767,7 +787,7 @@ public class RBTreeWithFaults
      * O(n)
      * public String[] valuesToArray()
      *
-     * Returns an array which contains all values in the tree,
+     * @return an array which contains all values in the tree,
      * sorted by their respective keys,
      * or an empty array if the tree is empty.
      */
@@ -810,10 +830,10 @@ public class RBTreeWithFaults
      * O(log(n))
      * public int size()
      *
-     * Returns the number of nodes in the tree.
      *
      * precondition: none
      * postcondition: none
+     * @return the number of nodes in the tree.
      */
     public int size()
     {
