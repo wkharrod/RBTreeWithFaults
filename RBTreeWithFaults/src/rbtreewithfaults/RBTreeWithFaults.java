@@ -456,7 +456,7 @@ public class RBTreeWithFaults
      */
     public int deleteFixup(RBNode x)
     {
-        Boolean debugging = false;
+        Boolean debugging = true;
         //number of color changes
         int counter = 0;
         if(debugging) System.out.println("deleteFixup(RBNode x) -- 1");

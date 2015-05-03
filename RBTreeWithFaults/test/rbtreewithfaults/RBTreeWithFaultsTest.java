@@ -112,13 +112,13 @@ public class RBTreeWithFaultsTest {
     }
 
     /**
-     * Test of deleteFixup1 method, of class RBTreeWithFaults.
+     * Test of deleteFixup - 1 method, of class RBTreeWithFaults.
      */
     @Test
     public void testDeleteFixup1()
     {
         Boolean debugging = false;
-        System.out.println("deleteFixup1");
+        System.out.println("deleteFixup - 1");
         int i=1;
         RBTreeWithFaults tree = new RBTreeWithFaults();
         
@@ -169,6 +169,8 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
         assertEquals(root.Left.Value, "w");
         assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
         
         if(debugging) System.out.println("xParent.Black = "+xParent.Black);
         assertEquals(xParent.Black, true);
@@ -176,6 +178,8 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("xParent.Right.Value = "+xParent.Right.Value);
         assertEquals(xParent.Left.Value, "x");
         assertEquals(xParent.Right.Value, "wLeft");
+        if(debugging) System.out.println("xParent.Parent = "+xParent.Parent.Value);
+        assertEquals(xParent.Parent.Value, "w");
         
         if(debugging) System.out.println("w.Black = "+w.Black);
         assertEquals(w.Black, true);
@@ -183,6 +187,8 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("w.Right.Value = "+w.Right.Value);
         assertEquals(w.Left.Value, "xParent");
         assertEquals(w.Right.Value, "wRight");
+        if(debugging) System.out.println("w.Parent = "+w.Parent.Value);
+        assertEquals(w.Parent.Value, "root");
         
         if(debugging) System.out.println("x.Black = "+x.Black);
         assertEquals(x.Black, true);
@@ -190,37 +196,45 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("x.Right.Value = "+x.Right.Value);
         assertEquals(x.Left.Value, "N");
         assertEquals(x.Right.Value, "N");
+        if(debugging) System.out.println("x.Parent = "+x.Parent.Value);
+        assertEquals(x.Parent.Value, "xParent");
         
         if(debugging) System.out.println("wLeft.Black = "+wLeft.Black);
         assertEquals(wLeft.Black, false);
-        if(debugging) System.out.println("wLeft.Left = "+wLeft.Left.Value);
-        if(debugging) System.out.println("wLeft.Right = "+wLeft.Right.Value);
+        if(debugging) System.out.println("wLeft.Left.Value = "+wLeft.Left.Value);
+        if(debugging) System.out.println("wLeft.Right.Value = "+wLeft.Right.Value);
         assertEquals(wLeft.Left.Value, "wLeftLeft");
         assertEquals(wLeft.Right.Value, "wLeftRight");
+        if(debugging) System.out.println("wLeft.Parent = "+wLeft.Parent.Value);
+        assertEquals(wLeft.Parent.Value, "xParent");
         
         if(debugging) System.out.println("wLeftLeft.Black = "+wLeftLeft.Black);
         assertEquals(wLeftLeft.Black, true);
-        if(debugging) System.out.println("wLeftLeft.Left = "+wLeftLeft.Left.Value);
-        if(debugging) System.out.println("wLeftLeft.Right = "+wLeftLeft.Right.Value);
+        if(debugging) System.out.println("wLeftLeft.Left.Value = "+wLeftLeft.Left.Value);
+        if(debugging) System.out.println("wLeftLeft.Right.Value = "+wLeftLeft.Right.Value);
         assertEquals(wLeftLeft.Left.Value, "N");
         assertEquals(wLeftLeft.Right.Value, "N");
+        if(debugging) System.out.println("wLeftLeft.Parent = "+wLeftLeft.Parent.Value);
+        assertEquals(wLeftLeft.Parent.Value, "wLeft");
         
         if(debugging) System.out.println("wLeftRight.Black = "+wLeftRight.Black);
         assertEquals(wLeftRight.Black, true);
-        if(debugging) System.out.println("wLeftRight.Left = "+wLeftRight.Left.Value);
-        if(debugging) System.out.println("wLeftRight.Right = "+wLeftRight.Right.Value);
+        if(debugging) System.out.println("wLeftRight.Left.Value = "+wLeftRight.Left.Value);
+        if(debugging) System.out.println("wLeftRight.Right.Value = "+wLeftRight.Right.Value);
         assertEquals(wLeftRight.Left.Value, "N");
         assertEquals(wLeftRight.Right.Value, "N");
+        if(debugging) System.out.println("wLeftRight.Parent = "+wLeftRight.Parent.Value);
+        assertEquals(wLeftRight.Parent.Value, "w");
     }
 
     /**
-     * Test of deleteFixup2 method, of class RBTreeWithFaults.
+     * Test of deleteFixup - 2 method, of class RBTreeWithFaults.
      */
     @Test
     public void testDeleteFixup2()
     {
         Boolean debugging = false;
-        System.out.println("deleteFixup2");
+        System.out.println("deleteFixup - 2");
         int i=1;
         RBTreeWithFaults tree = new RBTreeWithFaults();
         
@@ -237,11 +251,11 @@ public class RBTreeWithFaultsTest {
         xParent.Left = x;
         
         RBTreeWithFaults.RBNode w = tree.new RBNode("w", i++, xParent);
-        w.Black = false;
+        w.Black = true;
         xParent.Right = w;
         
         RBTreeWithFaults.RBNode wLeft = tree.new RBNode("wLeft",i++,w);
-        wLeft.Black = true;
+        wLeft.Black = false;
         w.Left = wLeft;
         
         RBTreeWithFaults.RBNode wLeftLeft = tree.new RBNode("wLeftLeft",i++,wLeft);
@@ -259,7 +273,123 @@ public class RBTreeWithFaultsTest {
         int result = tree.deleteFixup(x);
         
         if(debugging) System.out.println("result = "+result);
-        int expResult = 4;
+        int expResult = 3;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Left.Value, "wLeft");
+        assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("xParent.Black = "+xParent.Black);
+        assertEquals(xParent.Black, true);
+        if(debugging) System.out.println("xParent.Left.Value = "+xParent.Left.Value);
+        if(debugging) System.out.println("xParent.Right.Value = "+xParent.Right.Value);
+        assertEquals(xParent.Left.Value, "x");
+        assertEquals(xParent.Right.Value, "wLeftLeft");
+        if(debugging) System.out.println("xParent.Parent = "+xParent.Parent.Value);
+        assertEquals(xParent.Parent.Value, "wLeft");
+        
+        if(debugging) System.out.println("w.Black = "+w.Black);
+        assertEquals(w.Black, true);
+        if(debugging) System.out.println("w.Left.Value = "+w.Left.Value);
+        if(debugging) System.out.println("w.Right.Value = "+w.Right.Value);
+        assertEquals(w.Left.Value, "wLeftRight");
+        assertEquals(w.Right.Value, "wRight");
+        if(debugging) System.out.println("w.Parent = "+w.Parent.Value);
+        assertEquals(w.Parent.Value, "wLeft");
+        
+        if(debugging) System.out.println("x.Black = "+x.Black);
+        assertEquals(x.Black, true);
+        if(debugging) System.out.println("x.Left.Value = "+x.Left.Value);
+        if(debugging) System.out.println("x.Right.Value = "+x.Right.Value);
+        assertEquals(x.Left.Value, "N");
+        assertEquals(x.Right.Value, "N");
+        if(debugging) System.out.println("x.Parent = "+x.Parent.Value);
+        assertEquals(x.Parent.Value, "xParent");
+        
+        if(debugging) System.out.println("wLeft.Black = "+wLeft.Black);
+        assertEquals(wLeft.Black, true);
+        if(debugging) System.out.println("wLeft.Left.Value = "+wLeft.Left.Value);
+        if(debugging) System.out.println("wLeft.Right.Value = "+wLeft.Right.Value);
+        assertEquals(wLeft.Left.Value, "xParent");
+        assertEquals(wLeft.Right.Value, "w");
+        if(debugging) System.out.println("wLeft.Parent = "+wLeft.Parent.Value);
+        assertEquals(wLeft.Parent.Value, "root");
+        
+        if(debugging) System.out.println("wLeftLeft.Black = "+wLeftLeft.Black);
+        assertEquals(wLeftLeft.Black, true);
+        if(debugging) System.out.println("wLeftLeft.Left.Value = "+wLeftLeft.Left.Value);
+        if(debugging) System.out.println("wLeftLeft.Right.Value = "+wLeftLeft.Right.Value);
+        assertEquals(wLeftLeft.Left.Value, "N");
+        assertEquals(wLeftLeft.Right.Value, "N");
+        if(debugging) System.out.println("wLeftLeft.Parent = "+wLeftLeft.Parent.Value);
+        assertEquals(wLeftLeft.Parent.Value, "xParent");
+        
+        if(debugging) System.out.println("wLeftRight.Black = "+wLeftRight.Black);
+        assertEquals(wLeftRight.Black, true);
+        if(debugging) System.out.println("wLeftRight.Left.Value = "+wLeftRight.Left.Value);
+        if(debugging) System.out.println("wLeftRight.Right.Value = "+wLeftRight.Right.Value);
+        assertEquals(wLeftRight.Left.Value, "N");
+        assertEquals(wLeftRight.Right.Value, "N");
+        if(debugging) System.out.println("wLeftRight.Parent = "+wLeftRight.Parent.Value);
+        assertEquals(wLeftRight.Parent.Value, "w");
+    }
+
+    /**
+     * Test of deleteFixup - 3 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testDeleteFixup3()
+    {
+        Boolean debugging = true;
+        System.out.println("deleteFixup - 3");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode xParent = tree.new RBNode("xParent", i++, root);
+        xParent.Black = true;
+        root.Left = xParent;
+        
+        RBTreeWithFaults.RBNode x = tree.new RBNode("x", i++, xParent);
+        x.Black = true;
+        xParent.Left = x;
+        
+        RBTreeWithFaults.RBNode w = tree.new RBNode("w", i++, xParent);
+        w.Black = true;
+        xParent.Right = w;
+        
+        RBTreeWithFaults.RBNode wLeft = tree.new RBNode("wLeft",i++,w);
+        wLeft.Black = false;
+        w.Left = wLeft;
+        
+        RBTreeWithFaults.RBNode wLeftLeft = tree.new RBNode("wLeftLeft",i++,wLeft);
+        wLeftLeft.Black = true;
+        wLeft.Left = wLeftLeft;
+        
+        RBTreeWithFaults.RBNode wLeftRight = tree.new RBNode("wLeftRight",i++,w);
+        wLeftRight.Black = true;
+        wLeft.Right = wLeftRight;
+        
+        RBTreeWithFaults.RBNode wRight = tree.new RBNode("wRight",i++,w);
+        wRight.Black = false;
+        w.Right = wRight;
+        
+        int result = tree.deleteFixup(x);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 1;
         assertEquals(expResult, result);
         
         if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
@@ -271,6 +401,8 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
         assertEquals(root.Left.Value, "w");
         assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
         
         if(debugging) System.out.println("xParent.Black = "+xParent.Black);
         assertEquals(xParent.Black, true);
@@ -278,6 +410,8 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("xParent.Right.Value = "+xParent.Right.Value);
         assertEquals(xParent.Left.Value, "x");
         assertEquals(xParent.Right.Value, "wLeft");
+        if(debugging) System.out.println("root.Parent = "+xParent.Parent.Value);
+        assertEquals(xParent.Parent.Value, "w");
         
         if(debugging) System.out.println("w.Black = "+w.Black);
         assertEquals(w.Black, true);
@@ -285,6 +419,8 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("w.Right.Value = "+w.Right.Value);
         assertEquals(w.Left.Value, "xParent");
         assertEquals(w.Right.Value, "wRight");
+        if(debugging) System.out.println("w.Parent = "+w.Parent.Value);
+        assertEquals(w.Parent.Value, "root");
         
         if(debugging) System.out.println("x.Black = "+x.Black);
         assertEquals(x.Black, true);
@@ -292,27 +428,151 @@ public class RBTreeWithFaultsTest {
         if(debugging) System.out.println("x.Right.Value = "+x.Right.Value);
         assertEquals(x.Left.Value, "N");
         assertEquals(x.Right.Value, "N");
+        if(debugging) System.out.println("x.Parent = "+x.Parent.Value);
+        assertEquals(x.Parent.Value, "xParent");
         
         if(debugging) System.out.println("wLeft.Black = "+wLeft.Black);
         assertEquals(wLeft.Black, false);
-        if(debugging) System.out.println("wLeft.Left = "+wLeft.Left.Value);
-        if(debugging) System.out.println("wLeft.Right = "+wLeft.Right.Value);
+        if(debugging) System.out.println("wLeft.Left.Value = "+wLeft.Left.Value);
+        if(debugging) System.out.println("wLeft.Right.Value = "+wLeft.Right.Value);
         assertEquals(wLeft.Left.Value, "wLeftLeft");
         assertEquals(wLeft.Right.Value, "wLeftRight");
+        if(debugging) System.out.println("wLeft.Parent = "+wLeft.Parent.Value);
+        assertEquals(wLeft.Parent.Value, "xParent");
         
         if(debugging) System.out.println("wLeftLeft.Black = "+wLeftLeft.Black);
         assertEquals(wLeftLeft.Black, true);
-        if(debugging) System.out.println("wLeftLeft.Left = "+wLeftLeft.Left.Value);
-        if(debugging) System.out.println("wLeftLeft.Right = "+wLeftLeft.Right.Value);
+        if(debugging) System.out.println("wLeftLeft.Left.Value = "+wLeftLeft.Left.Value);
+        if(debugging) System.out.println("wLeftLeft.Right.Value = "+wLeftLeft.Right.Value);
         assertEquals(wLeftLeft.Left.Value, "N");
         assertEquals(wLeftLeft.Right.Value, "N");
+        if(debugging) System.out.println("wLeftLeft.Parent = "+wLeftLeft.Parent.Value);
+        assertEquals(wLeftLeft.Parent.Value, "wLeft");
         
         if(debugging) System.out.println("wLeftRight.Black = "+wLeftRight.Black);
         assertEquals(wLeftRight.Black, true);
-        if(debugging) System.out.println("wLeftRight.Left = "+wLeftRight.Left.Value);
-        if(debugging) System.out.println("wLeftRight.Right = "+wLeftRight.Right.Value);
+        if(debugging) System.out.println("wLeftRight.Left.Value = "+wLeftRight.Left.Value);
+        if(debugging) System.out.println("wLeftRight.Right.Value = "+wLeftRight.Right.Value);
         assertEquals(wLeftRight.Left.Value, "N");
         assertEquals(wLeftRight.Right.Value, "N");
+        if(debugging) System.out.println("wLeftRight.Parent = "+wLeftRight.Parent.Value);
+        assertEquals(wLeftRight.Parent.Value, "w");
+    }
+
+    /**
+     * Test of deleteFixup - 4 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testDeleteFixup4()
+    {
+        Boolean debugging = true;
+        System.out.println("deleteFixup - 3");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode xParent = tree.new RBNode("xParent", i++, root);
+        xParent.Black = true;
+        root.Left = xParent;
+        
+        RBTreeWithFaults.RBNode x = tree.new RBNode("x", i++, xParent);
+        x.Black = true;
+        xParent.Left = x;
+        
+        RBTreeWithFaults.RBNode w = tree.new RBNode("w", i++, xParent);
+        w.Black = true;
+        xParent.Right = w;
+        
+        RBTreeWithFaults.RBNode wLeft = tree.new RBNode("wLeft",i++,w);
+        wLeft.Black = false;
+        w.Left = wLeft;
+        
+        RBTreeWithFaults.RBNode wLeftLeft = tree.new RBNode("wLeftLeft",i++,wLeft);
+        wLeftLeft.Black = true;
+        wLeft.Left = wLeftLeft;
+        
+        RBTreeWithFaults.RBNode wLeftRight = tree.new RBNode("wLeftRight",i++,w);
+        wLeftRight.Black = true;
+        wLeft.Right = wLeftRight;
+        
+        RBTreeWithFaults.RBNode wRight = tree.new RBNode("wRight",i++,w);
+        wRight.Black = false;
+        w.Right = wRight;
+        
+        int result = tree.deleteFixup(x);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 1;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Left.Value, "w");
+        assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("xParent.Black = "+xParent.Black);
+        assertEquals(xParent.Black, true);
+        if(debugging) System.out.println("xParent.Left.Value = "+xParent.Left.Value);
+        if(debugging) System.out.println("xParent.Right.Value = "+xParent.Right.Value);
+        assertEquals(xParent.Left.Value, "x");
+        assertEquals(xParent.Right.Value, "wLeft");
+        if(debugging) System.out.println("root.Parent = "+xParent.Parent.Value);
+        assertEquals(xParent.Parent.Value, "w");
+        
+        if(debugging) System.out.println("w.Black = "+w.Black);
+        assertEquals(w.Black, true);
+        if(debugging) System.out.println("w.Left.Value = "+w.Left.Value);
+        if(debugging) System.out.println("w.Right.Value = "+w.Right.Value);
+        assertEquals(w.Left.Value, "xParent");
+        assertEquals(w.Right.Value, "wRight");
+        if(debugging) System.out.println("w.Parent = "+w.Parent.Value);
+        assertEquals(w.Parent.Value, "root");
+        
+        if(debugging) System.out.println("x.Black = "+x.Black);
+        assertEquals(x.Black, true);
+        if(debugging) System.out.println("x.Left.Value = "+x.Left.Value);
+        if(debugging) System.out.println("x.Right.Value = "+x.Right.Value);
+        assertEquals(x.Left.Value, "N");
+        assertEquals(x.Right.Value, "N");
+        if(debugging) System.out.println("x.Parent = "+x.Parent.Value);
+        assertEquals(x.Parent.Value, "xParent");
+        
+        if(debugging) System.out.println("wLeft.Black = "+wLeft.Black);
+        assertEquals(wLeft.Black, false);
+        if(debugging) System.out.println("wLeft.Left.Value = "+wLeft.Left.Value);
+        if(debugging) System.out.println("wLeft.Right.Value = "+wLeft.Right.Value);
+        assertEquals(wLeft.Left.Value, "wLeftLeft");
+        assertEquals(wLeft.Right.Value, "wLeftRight");
+        if(debugging) System.out.println("wLeft.Parent = "+wLeft.Parent.Value);
+        assertEquals(wLeft.Parent.Value, "xParent");
+        
+        if(debugging) System.out.println("wLeftLeft.Black = "+wLeftLeft.Black);
+        assertEquals(wLeftLeft.Black, true);
+        if(debugging) System.out.println("wLeftLeft.Left.Value = "+wLeftLeft.Left.Value);
+        if(debugging) System.out.println("wLeftLeft.Right.Value = "+wLeftLeft.Right.Value);
+        assertEquals(wLeftLeft.Left.Value, "N");
+        assertEquals(wLeftLeft.Right.Value, "N");
+        if(debugging) System.out.println("wLeftLeft.Parent = "+wLeftLeft.Parent.Value);
+        assertEquals(wLeftLeft.Parent.Value, "wLeft");
+        
+        if(debugging) System.out.println("wLeftRight.Black = "+wLeftRight.Black);
+        assertEquals(wLeftRight.Black, true);
+        if(debugging) System.out.println("wLeftRight.Left.Value = "+wLeftRight.Left.Value);
+        if(debugging) System.out.println("wLeftRight.Right.Value = "+wLeftRight.Right.Value);
+        assertEquals(wLeftRight.Left.Value, "N");
+        assertEquals(wLeftRight.Right.Value, "N");
+        if(debugging) System.out.println("wLeftRight.Parent = "+wLeftRight.Parent.Value);
+        assertEquals(wLeftRight.Parent.Value, "w");
     }
     
     /**
