@@ -54,7 +54,7 @@ public class RBTreeWithFaults
      * create infinity node with Null children
      * @return infinity node with no children
      */
-    private RBNode createInfinityNode()
+    public RBNode createInfinityNode()
     {
         return createInfinityNode(createNullNode(null));
     }
@@ -65,7 +65,7 @@ public class RBTreeWithFaults
      * @param leftchild - the left child of the infinity node
      * @return infinity node with a left child
      */
-    private RBNode createInfinityNode(RBNode leftchild)
+    public RBNode createInfinityNode(RBNode leftchild)
     {
         //create infinity node with a key of the maximum integer available in java.
         RBNode node = new RBNode("Infinity",Integer.MAX_VALUE,leftchild,null,null);
@@ -82,7 +82,7 @@ public class RBTreeWithFaults
      * @param parent - the parent of this null node
      * @return the null node already connected to its parent
      */
-    private RBNode createNullNode(RBNode parent)
+    public RBNode createNullNode(RBNode parent)
     {
         //create a null node. this node will have the minimum integer value available in java as a key
         RBNode newNode = new RBNode("N",Integer.MIN_VALUE,null,null,parent);
@@ -138,7 +138,7 @@ public class RBTreeWithFaults
      * the node was supposed to be found. if the parent is the infinity node and not part of the tree
      * returns null
      */
-    private RBNode SearchNode(int k,RBNode node)
+    public RBNode SearchNode(int k,RBNode node)
     {
         //if the node that was given is the sentinel recursively call the function with the tree root
         if (isInfinityNode(node))
@@ -235,7 +235,7 @@ public class RBTreeWithFaults
      * @param z - the node to start the fix from
      * @return the number of color changes that occured while fixing the tree
      */
-    private int fixUpTree (RBNode z)
+    public int fixUpTree (RBNode z)
     {
         //counter will count the number of color changes
         int counter = 0;
@@ -321,7 +321,7 @@ public class RBTreeWithFaults
      * @param x - the parent node
      * @param y - left child root
      */
-    private void leftChild(RBNode x,RBNode y)
+    public void leftChild(RBNode x,RBNode y)
     {
         x.Left = y;
         y.Parent = x;
@@ -333,7 +333,7 @@ public class RBTreeWithFaults
      * @param x - the parent node
      * @param y - the right child node
      */
-    private void rightChild(RBNode x,RBNode y)
+    public void rightChild(RBNode x,RBNode y)
     {
         x.Right = y;
         y.Parent = x;
@@ -345,7 +345,7 @@ public class RBTreeWithFaults
      * @param x - the original child
      * @param y - the child after the change
      */
-    private void transplate(RBNode x, RBNode y)
+    public void transplate(RBNode x, RBNode y)
     {
         if (x == x.Parent.Left)
         {
@@ -363,7 +363,7 @@ public class RBTreeWithFaults
      * found in Book: Cormen - introduction to algorithms
      * @param x - the node to rotate from
      */
-    private void leftRotate(RBNode x)
+    public void leftRotate(RBNode x)
     {
         RBNode y = x.Right;
         transplate(x,y);
@@ -377,7 +377,7 @@ public class RBTreeWithFaults
      * found in Book: Cormen - introduction to algorithms
      * @param x - the node to rotate from
      */
-    private void rightRotate(RBNode y)
+    public void rightRotate(RBNode y)
     {
         RBNode x = y.Left;
         transplate(y,x);
