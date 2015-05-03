@@ -456,126 +456,127 @@ public class RBTreeWithFaults
      */
     public int deleteFixup(RBNode x)
     {
+        Boolean debugging = false;
         //number of color changes
         int counter = 0;
-        System.out.println("deleteFixup(RBNode x) -- 1");
+        if(debugging) System.out.println("deleteFixup(RBNode x) -- 1");
         //run until x is the tree root and as long as x is black
         while(x != this.Root.Left && x.Black)
         {
-            System.out.println("deleteFixup(RBNode x) -- 3");
+            if(debugging) System.out.println("deleteFixup(RBNode x) -- 3");
             if(x == x.Parent.Left)
             {
-                System.out.println("deleteFixup(RBNode x) -- 4");
+                if(debugging) System.out.println("deleteFixup(RBNode x) -- 4");
                 //x is a left child
                 RBNode w = x.Parent.Right;
-                System.out.println("w.value == "+w.Value);
+                if(debugging) System.out.println("w.value == "+w.Value);
                 if(!w.Black)
                 {
-                    System.out.println("deleteFixup(RBNode x) -- 5");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 5");
                     //case 1
                     w.Black = true;
                     x.Parent.Black = false;
                     leftRotate(x.Parent);
                     w = x.Parent.Right;
-                    System.out.println("w.value == "+w.Value);
+                    if(debugging) System.out.println("w.value == "+w.Value);
                     counter += 2;
                 }
-                System.out.println("deleteFixup(RBNode x) -- 6");
+                if(debugging) System.out.println("deleteFixup(RBNode x) -- 6");
                 if(w.Left.Black && w.Right.Black)
                 {
-                    System.out.println("deleteFixup(RBNode x) -- 7");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 7");
                     //case 2
                     w.Black = false;
                     x = x.Parent;
-                    System.out.println("x.value == "+x.Value);
+                    if(debugging) System.out.println("x.value == "+x.Value);
                     counter += 1;
                 }
                 else 
                 {
-                    System.out.println("deleteFixup(RBNode x) -- 8");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 8");
                     if(w.Right.Black)
                     {
-                        System.out.println("deleteFixup(RBNode x) -- 9");
+                        if(debugging) System.out.println("deleteFixup(RBNode x) -- 9");
                         //case 3 
                         w.Left.Black = true;
                         w.Black = false;
                         rightRotate(w);
                         w = x.Parent.Right;
-                        System.out.println("w.value == "+w.Value);
+                        if(debugging) System.out.println("w.value == "+w.Value);
                         counter +=2;
                     }
-                    System.out.println("deleteFixup(RBNode x) -- 10");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 10");
                     //case 4
                     w.Black = x.Parent.Black;
                     x.Parent.Black = true;
                     w.Right.Black = true;
                     leftRotate(x.Parent);
                     x = this.Root.Left;
-                    System.out.println("x.value == "+x.Value);
+                    if(debugging) System.out.println("x.value == "+x.Value);
                     counter += 1;
                 }
             }
             else
             {
-                System.out.println("deleteFixup(RBNode x) -- 11");
+                if(debugging) System.out.println("deleteFixup(RBNode x) -- 11");
                 //x is a right child
                 RBNode w = x.Parent.Left;
                 if(!w.Black){
-                    System.out.println("deleteFixup(RBNode x) -- 12");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 12");
                     //case 1
                     w.Black = true;
                     x.Parent.Black = false;
                     rightRotate(x.Parent);
                     w = x.Parent.Left;
-                    System.out.println("w.value == "+w.Value);
+                    if(debugging) System.out.println("w.value == "+w.Value);
                     counter += 2;
                 }
                 
-                System.out.println("deleteFixup(RBNode x) -- 13");
+                if(debugging) System.out.println("deleteFixup(RBNode x) -- 13");
                 if(w.Left.Black && w.Right.Black)
                 {
-                    System.out.println("deleteFixup(RBNode x) -- 14");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 14");
                     //case 2
                     w.Black = false;
                     x = x.Parent;
-                    System.out.println("x.value == "+x.Value);
+                    if(debugging) System.out.println("x.value == "+x.Value);
                     counter += 1;
                 }
                 else 
                 {
-                    System.out.println("deleteFixup(RBNode x) -- 15");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 15");
                     if(w.Left.Black)
                     {
-                        System.out.println("deleteFixup(RBNode x) -- 16");
+                        if(debugging) System.out.println("deleteFixup(RBNode x) -- 16");
                         //case 3 
                         w.Right.Black = true;
                         w.Black = false;
                         leftRotate(w);
                         w = x.Parent.Left;
-                        System.out.println("w.value == "+w.Value);
+                        if(debugging) System.out.println("w.value == "+w.Value);
                         counter +=2;
                     }
-                    System.out.println("deleteFixup(RBNode x) -- 17");
+                    if(debugging) System.out.println("deleteFixup(RBNode x) -- 17");
                     //case 4
                     w.Black = x.Parent.Black;
                     x.Parent.Black = true;
                     w.Left.Black = true;
                     rightRotate(x.Parent);
                     x = this.Root.Left;
-                    System.out.println("x.value == "+x.Value);
+                    if(debugging) System.out.println("x.value == "+x.Value);
                     counter +=1;
                 }
             }
         }
-        System.out.println("deleteFixup(RBNode x) -- 18");
+        if(debugging) System.out.println("deleteFixup(RBNode x) -- 18");
         if(x.Black == false)
         {
-            System.out.println("deleteFixup(RBNode x) -- 19");
+            if(debugging) System.out.println("deleteFixup(RBNode x) -- 19");
             x.Black = true;
             counter += 1;
         }
 
-        System.out.println("deleteFixup(RBNode x) -- 20");
+        if(debugging) System.out.println("deleteFixup(RBNode x) -- 20");
         return counter;
     }
 
@@ -860,7 +861,7 @@ public class RBTreeWithFaults
      */
     public class RBNode
     {
-        private String Value;
+        String Value; // wkh change to private
         private int Key;
         RBNode Left,Right,Parent; // wkh change to private
         boolean Black; // wkh change to private
