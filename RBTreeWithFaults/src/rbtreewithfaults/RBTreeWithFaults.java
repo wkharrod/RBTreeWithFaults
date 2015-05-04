@@ -644,7 +644,7 @@ public class RBTreeWithFaults
      */
     public boolean isInfinityNode(RBNode node)
     {
-        Boolean debugging = true;
+        Boolean debugging = false;
         
         if(debugging) System.out.println("isInfinityNode(RBNode node) -- 1");
         return node.Key == Integer.MAX_VALUE;
@@ -658,6 +658,9 @@ public class RBTreeWithFaults
      */
     public static boolean isNullNode(RBNode node)
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("isNullNode(RBNode node) -- 1");
         return node.Key == Integer.MIN_VALUE;
     }
 
@@ -670,11 +673,16 @@ public class RBTreeWithFaults
      */
     public String max()
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("max() -- 1");
         if(this.empty())
         {
+            if(debugging) System.out.println("max() -- 2");
             return null;
         }
 
+        if(debugging) System.out.println("max() -- 3");
         return maxValue(this.Root.Left);
 
     }
@@ -687,12 +695,18 @@ public class RBTreeWithFaults
      */
     public static String maxValue(RBNode node)
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("maxValue(RBNode node) -- 1");
+        
         //next node is null node so return this node
         if(isNullNode(node.Right))
         {
-                return node.Value;
+            if(debugging) System.out.println("maxValue(RBNode node) -- 2");
+            return node.Value;
         }
 
+        if(debugging) System.out.println("maxValue(RBNode node) -- 3");
         return maxValue(node.Right);
     }
 
@@ -705,12 +719,19 @@ public class RBTreeWithFaults
      */
     public int[] keysToArray()
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("keysToArray() -- 1");
         String keysString = ElementsToString(this.Root,true);
+        
         //keysString is a string of all the keys in the tree separated by ","
         if(keysString.equals(""))
         {
-                return new int[0];
+            if(debugging) System.out.println("keysToArray() -- 2");
+            return new int[0];
         }
+        
+        if(debugging) System.out.println("keysToArray() -- 3");
         return ArrayOfStringsToArrayOfInts(keysString.split(","));              
     }
 
@@ -721,11 +742,20 @@ public class RBTreeWithFaults
      */
     public int[] ArrayOfStringsToArrayOfInts(String[] strArr)
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("ArrayOfStringsToArrayOfInts(String[] strArr) -- 1");
         int[] arr = new int[strArr.length];
-        for(int i=0; i<= strArr.length;i++)
+        // for(int i=0; i<= strArr.length;i++) /* Fault found! Goes through extra index */
+        for(int i=0; i< strArr.length;i++)
         {
+            if(debugging) System.out.println("ArrayOfStringsToArrayOfInts(String[] strArr) -- 2"); /* can't place in for loop conditional */
+            if(debugging) System.out.println("ArrayOfStringsToArrayOfInts(String[] strArr) -- 3");
             arr[i] = Integer.parseInt(strArr[i]);
         }
+        if(debugging) System.out.println("ArrayOfStringsToArrayOfInts(String[] strArr) -- 2"); /* can't place in for loop conditional */
+        
+        if(debugging) System.out.println("ArrayOfStringsToArrayOfInts(String[] strArr) -- 4");
         return arr;
     }
 
@@ -738,48 +768,64 @@ public class RBTreeWithFaults
      */
     public String ElementsToString(RBNode node,boolean key)
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 1");
         if(isNullNode(node))
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 2");
             return "";
         }
 
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 3");
         //if called with the infinity node recursively call with the real root
         if(isInfinityNode(node))
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 4");
             return ElementsToString(node.Left,key); 
         }
 
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 5");
         String str;
         if(key)
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 6");
             //str will be the key
             str = Integer.toString(node.Key);
         }
         else
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 7");
             //str will be the value
             str = node.Value;
         }
 
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 8");
         //str is the element needs to be insert in the returning string
         if(!isNullNode(node.Left) && !isNullNode(node.Right))
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 9");
             //return all the elements, bigger and smaller then the current node
             return ElementsToString(node.Left,key) + "," + str + "," + ElementsToString(node.Right,key);
         }
 
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 10");
         if(!isNullNode(node.Right))
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 11");
             //there is no lower elements return the current element + all the elements that bigger
             return str + "," + ElementsToString(node.Right,key);
         }
 
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 12");
         if(!isNullNode(node.Left))
         {
+            if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 13");
             //there is no higher elements. return all the elements that are lower than the current element
             return ElementsToString(node.Left,key) + "," + str;
         }
 
+        if(debugging) System.out.println("ElementsToString(RBNode node,boolean key) -- 14");
         return str;
     }
 
@@ -793,6 +839,9 @@ public class RBTreeWithFaults
      */
     public String[] valuesToArray()
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("valuesToArray() -- 1");
         String valuesString = ElementsToString(this.Root.Left,false);
         //valuesString is a string with all the values saperated with ","
         return valuesString.split(",");
@@ -837,11 +886,16 @@ public class RBTreeWithFaults
      */
     public int size()
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("size() -- 1");
         if(this.empty())
         {
-                return 0;
+            if(debugging) System.out.println("size() -- 2");
+            return 0;
         }
 
+        if(debugging) System.out.println("size() -- 3");
         return sizeCalc(this.Root.Left);
     }
 
@@ -852,25 +906,34 @@ public class RBTreeWithFaults
      */
     public static int sizeCalc(RBNode node)
     {
+        Boolean debugging = false;
+        
+        if(debugging) System.out.println("sizeCalc(RBNode node) -- 1");
         //count from both sides
         if(!isNullNode(node.Left) && !isNullNode(node.Right))
         {
+            if(debugging) System.out.println("sizeCalc(RBNode node) -- 2");
             //return 2 + sizeCalc(node.Left) + sizeCalc(node.Right); /* Fault found! Added 2 instead of just this 1 node to size */
             return 1 + sizeCalc(node.Left) + sizeCalc(node.Right);
         }
 
+        if(debugging) System.out.println("sizeCalc(RBNode node) -- 3");
         //count with higher side
         if(!isNullNode(node.Left))
         {
+            if(debugging) System.out.println("sizeCalc(RBNode node) -- 4");
             return 1 + sizeCalc(node.Left);
         }
 
+        if(debugging) System.out.println("sizeCalc(RBNode node) -- 5");
         //count with lower side
         if(!isNullNode(node.Right))
         {
+            if(debugging) System.out.println("sizeCalc(RBNode node) -- 6");
             return 1 + sizeCalc(node.Right);
         }
 
+        if(debugging) System.out.println("sizeCalc(RBNode node) -- 7");
         return 1;
     }
 
@@ -882,7 +945,7 @@ public class RBTreeWithFaults
     public class RBNode
     {
         String Value; // wkh change to private
-        private int Key;
+        int Key;
         RBNode Left,Right,Parent; // wkh change to private
         boolean Black; // wkh change to private
 
@@ -919,6 +982,7 @@ public class RBTreeWithFaults
             this.Right = createNullNode(this);
         }
     }
+    
     public static void main(String[] args) 
     {
     }

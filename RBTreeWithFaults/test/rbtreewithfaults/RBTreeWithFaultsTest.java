@@ -944,99 +944,457 @@ public class RBTreeWithFaultsTest {
     }
     
     /**
-     * Test of max method, of class RBTreeWithFaults.
+     * Test of max - 1 method, of class RBTreeWithFaults.
      */
     @Test
-    public void testMax() {
-        System.out.println("max");
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        String expResult = "";
-        String result = instance.max();
+    public void testMax1() {
+        Boolean debugging = false;
+        System.out.println("max - 1");
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        String expResult = null;
+        String result = tree.max();
+        
+        if(debugging) System.out.println("result == "+result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-
+    
     /**
-     * Test of maxValue method, of class RBTreeWithFaults.
+     * Test of max - 2 method, of class RBTreeWithFaults.
      */
     @Test
-    public void testMaxValue() {
-        System.out.println("maxValue");
-        RBTreeWithFaults.RBNode node = null;
-        String expResult = "";
-        String result = RBTreeWithFaults.maxValue(node);
+    public void testMax2() {
+        Boolean debugging = false;
+        System.out.println("max - 2");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        String expResult = "rootLeft";
+        String result = tree.max();
+        
+        if(debugging) System.out.println("result == "+result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    
+    /**
+     * Test of maxValue - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testMaxValue1() {
+        Boolean debugging = false;
+        System.out.println("maxValue - 1");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        tree.Root.Right = tree.createNullNode(tree.Root);
+        
+        String expResult = "Infinity";
+        String result = tree.maxValue(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of maxValue - 2 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testMaxValue2() {
+        Boolean debugging = false;
+        System.out.println("maxValue - 2");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootRight = tree.new RBNode("rootRight", i++, tree.Root);
+        rootRight.Black = true;
+        tree.Root.Right = rootRight;
+        
+        String expResult = "rootRight";
+        String result = tree.maxValue(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of keysToArray - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testKeysToArray1() {
+        Boolean debugging = false;
+        System.out.println("keysToArray - 1");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        int[] expResult = {};
+        int[] result = tree.keysToArray();
+        
+        if(debugging) System.out.println("result.length == "+result.length);
+        assertEquals(expResult.length, result.length);
+        
+        for(int arrayIndex = 0; arrayIndex<result.length; arrayIndex++)
+        {
+            if(debugging) System.out.println("result["+arrayIndex+"] == "+result[arrayIndex]);
+            assertEquals(expResult[arrayIndex], result[arrayIndex]);
+        }
+    }
+    
+    /**
+     * Test of keysToArray - 2 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testKeysToArray2() {
+        Boolean debugging = false;
+        System.out.println("keysToArray - 2");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        int[] expResult = {1};
+        int[] result = tree.keysToArray();
+        
+        if(debugging) System.out.println("result.length == "+result.length);
+        assertEquals(expResult.length, result.length);
+        
+        for(int arrayIndex = 0; arrayIndex<result.length; arrayIndex++)
+        {
+            if(debugging) System.out.println("result["+arrayIndex+"] == "+result[arrayIndex]);
+            assertEquals(expResult[arrayIndex], result[arrayIndex]);
+        }
+    }
+    
+    /**
+     * Test of ArrayOfStringsToArrayOfInts - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testArrayOfStringsToArrayOfInts1() {
+        Boolean debugging = false;
+        System.out.println("ArrayOfStringsToArrayOfInts - 1");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        String[] input = {"1"};
+        int[] expResult = {1};
+        int[] result = tree.ArrayOfStringsToArrayOfInts(input);
+        
+        if(debugging) System.out.println("result.length == "+result.length);
+        assertEquals(expResult.length, result.length);
+        
+        for(int arrayIndex = 0; arrayIndex<result.length; arrayIndex++)
+        {
+            if(debugging) System.out.println("result["+arrayIndex+"] == "+result[arrayIndex]);
+            assertEquals(expResult[arrayIndex], result[arrayIndex]);
+        }
+    }
+    
+    /**
+     * Test of ElementsToString - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testElementsToString1() {
+        Boolean debugging = false;
+        System.out.println("ElementsToString - 1");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        tree.Root.Left = tree.createNullNode(tree.Root);
+        
+        String expResult = "";
+        String result = tree.ElementsToString(tree.Root.Left, true);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of ElementsToString - 2 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testElementsToString2() {
+        Boolean debugging = false;
+        System.out.println("ElementsToString - 2");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        tree.Root.Left = tree.createNullNode(tree.Root);
+        
+        String expResult = "";
+        String result = tree.ElementsToString(tree.Root, true);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of ElementsToString - 3 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testElementsToString3() {
+        Boolean debugging = false;
+        System.out.println("ElementsToString - 3");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        RBTreeWithFaults.RBNode rootLeftRight = tree.new RBNode("rootLeftRight", i++, rootLeft);
+        rootLeftRight.Black = true;
+        rootLeft.Right = rootLeftRight;
+        
+        RBTreeWithFaults.RBNode rootLeftLeft = tree.new RBNode("rootLeftLeft", i++, rootLeft);
+        rootLeftLeft.Black = true;
+        rootLeft.Left = rootLeftLeft;
+        
+        String expResult = "3,1,2";
+        String result = tree.ElementsToString(rootLeft, true);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of ElementsToString - 4 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testElementsToString4() {
+        Boolean debugging = false;
+        System.out.println("ElementsToString - 4");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        RBTreeWithFaults.RBNode rootLeftRight = tree.new RBNode("rootLeftRight", i++, rootLeft);
+        rootLeftRight.Black = true;
+        rootLeft.Right = rootLeftRight;
+        
+        String expResult = "rootLeft,rootLeftRight";
+        String result = tree.ElementsToString(rootLeft, false);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of ElementsToString - 5 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testElementsToString5() {
+        Boolean debugging = false;
+        System.out.println("ElementsToString - 5");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        RBTreeWithFaults.RBNode rootLeftLeft = tree.new RBNode("rootLeftLeft", i++, rootLeft);
+        rootLeftLeft.Black = true;
+        rootLeft.Left = rootLeftLeft;
+        
+        String expResult = "rootLeftLeft,rootLeft";
+        String result = tree.ElementsToString(rootLeft, false);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of ElementsToString - 6 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testElementsToString6() {
+        Boolean debugging = false;
+        System.out.println("ElementsToString - 6");
+        
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        String expResult = "rootLeft";
+        String result = tree.ElementsToString(rootLeft, false);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of valuesToArray - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testValuesToArray1() {
+        Boolean debugging = false;
+        System.out.println("valuesToArray - 1");
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        String[] expResult = {""};
+        String[] result = tree.valuesToArray();
+        
+        if(debugging) System.out.println("result.length == "+result.length);
+        assertEquals(expResult.length, result.length);
+        
+        for(int arrayIndex = 0; arrayIndex<result.length; arrayIndex++)
+        {
+            if(debugging) System.out.println("result["+arrayIndex+"] == "+result[arrayIndex]);
+            assertEquals(expResult[arrayIndex], result[arrayIndex]);
+        }
     }
 
     /**
-     * Test of keysToArray method, of class RBTreeWithFaults.
+     * Test of size - 1 method, of class RBTreeWithFaults.
      */
     @Test
-    public void testKeysToArray() {
-        System.out.println("keysToArray");
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        int[] expResult = null;
-        int[] result = instance.keysToArray();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of valuesToArray method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testValuesToArray() {
-        System.out.println("valuesToArray");
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        String[] expResult = null;
-        String[] result = instance.valuesToArray();
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of size method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testSize() {
-        System.out.println("size");
+    public void testSize1() {
+        Boolean debugging = false;
+        System.out.println("size - 1");
         RBTreeWithFaults instance = new RBTreeWithFaults();
         int expResult = 0;
         int result = instance.size();
+        
+        if(debugging) System.out.println("result == "+result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of sizeCalc method, of class RBTreeWithFaults.
+     * Test of size - 2 method, of class RBTreeWithFaults.
      */
     @Test
-    public void testSizeCalc() {
-        System.out.println("sizeCalc");
-        RBTreeWithFaults.RBNode node = null;
-        int expResult = 0;
-        int result = RBTreeWithFaults.sizeCalc(node);
+    public void testSize2() {
+        Boolean debugging = false;
+        System.out.println("size - 2");
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        int i=1;
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        int expResult = 1;
+        int result = tree.size();
+        
+        if(debugging) System.out.println("result == "+result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of main method, of class RBTreeWithFaults.
+     * Test of sizeCalc - 1 method, of class RBTreeWithFaults.
      */
     @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        RBTreeWithFaults.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSizeCalc1() {
+        Boolean debugging = false;
+        System.out.println("sizeCalc - 1");
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        int i=1;
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        RBTreeWithFaults.RBNode rootRight = tree.new RBNode("rootRight", i++, tree.Root);
+        rootRight.Black = true;
+        tree.Root.Right = rootRight;
+        
+        int expResult = 3;
+        int result = RBTreeWithFaults.sizeCalc(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
     }
-    
+
+    /**
+     * Test of sizeCalc - 2 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testSizeCalc2() {
+        Boolean debugging = false;
+        System.out.println("sizeCalc - 2");
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        int i=1;
+        RBTreeWithFaults.RBNode rootLeft = tree.new RBNode("rootLeft", i++, tree.Root);
+        rootLeft.Black = true;
+        tree.Root.Left = rootLeft;
+        
+        tree.Root.Right = tree.createNullNode(tree.Root);
+        
+        int expResult = 2;
+        int result = RBTreeWithFaults.sizeCalc(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of sizeCalc - 3 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testSizeCalc3() {
+        Boolean debugging = true;
+        System.out.println("sizeCalc - 3");
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        int i=1;
+        RBTreeWithFaults.RBNode rootRight = tree.new RBNode("rootRight", i++, tree.Root);
+        rootRight.Black = true;
+        tree.Root.Right = rootRight;
+        
+        tree.Root.Left = tree.createNullNode(tree.Root);
+        
+        int expResult = 2;
+        int result = RBTreeWithFaults.sizeCalc(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of sizeCalc - 4 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testSizeCalc4() {
+        Boolean debugging = true;
+        System.out.println("sizeCalc - 4");
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        tree.Root.Left = tree.createNullNode(tree.Root);
+        tree.Root.Right = tree.createNullNode(tree.Root);
+        
+        int expResult = 1;
+        int result = RBTreeWithFaults.sizeCalc(tree.Root);
+        
+        if(debugging) System.out.println("result == "+result);
+        assertEquals(expResult, result);
+    }
 }
