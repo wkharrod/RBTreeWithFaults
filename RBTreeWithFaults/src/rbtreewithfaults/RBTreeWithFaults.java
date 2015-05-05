@@ -27,6 +27,8 @@ public class RBTreeWithFaults
      */
     public RBNode getRoot()
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("getRoot() -- 1");
         return Root.Left;
     }
 
@@ -36,6 +38,8 @@ public class RBTreeWithFaults
      */
     public RBTreeWithFaults()
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("RBTreeWithFaults() -- 1");
         this.Root = createInfinityNode();
     }
 
@@ -46,6 +50,8 @@ public class RBTreeWithFaults
      */
     public RBTreeWithFaults(RBNode root)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("RBTreeWithFaults(RBNode root) -- 2");
         this.Root = createInfinityNode(root);;
     }
 
@@ -56,6 +62,8 @@ public class RBTreeWithFaults
      */
     public RBNode createInfinityNode()
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("RBTreeWithFaults(RBNode root) -- 2");
         return createInfinityNode(createNullNode(null));
     }
 
@@ -67,6 +75,8 @@ public class RBTreeWithFaults
      */
     public RBNode createInfinityNode(RBNode leftchild)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("createInfinityNode(RBNode leftchild) -- 1");
         //create infinity node with a key of the maximum integer available in java.
         RBNode node = new RBNode("Infinity",Integer.MAX_VALUE,leftchild,null,null);
         //set the parent of the new child to be the node
@@ -84,6 +94,8 @@ public class RBTreeWithFaults
      */
     public RBNode createNullNode(RBNode parent)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("createNullNode(RBNode parent) -- 1");
         //create a null node. this node will have the minimum integer value available in java as a key
         RBNode newNode = new RBNode("N",Integer.MIN_VALUE,null,null,parent);
         //set the null node to be black (default is red)
@@ -100,6 +112,8 @@ public class RBTreeWithFaults
      */
     public boolean empty()
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("empty() -- 1");
         return isNullNode(this.Root.Left);
     }
 
@@ -112,19 +126,24 @@ public class RBTreeWithFaults
      */
     public String search(int k)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("search(int k) -- 1");
         RBNode currNode = SearchNode(k,this.Root);
         //return null if the tree is empty
         if(currNode == null)
         {
+            if(debugging) System.out.println("search(int k) -- 2");
             return null;
         }
-
+        if(debugging) System.out.println("search(int k) -- 3");
         //if not found return null
         if(isNullNode(currNode) || currNode.Key != k)
         {
+            if(debugging) System.out.println("search(int k) -- 4");
             return null;
         }
-
+        
+        if(debugging) System.out.println("search(int k) -- 5");
         //return the value of the node with the key = k
         return currNode.Value;
     }
@@ -140,40 +159,50 @@ public class RBTreeWithFaults
      */
     public RBNode SearchNode(int k,RBNode node)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 1");
         //if the node that was given is the sentinel recursively call the function with the tree root
         if (isInfinityNode(node))
         {
+            if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 2");
             return SearchNode(k,node.Left);
         }
-
+        if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 3");
         if(isNullNode(node))
         {
+            if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 4");
             //the node is not exist in the tree. we will return null if the tree is empty.
             if(isInfinityNode(node.Parent))
             {
+                if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 5");
                 return null;
             }
             else
             {
+                if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 6");
                 //we could not find the node so we will return the parent of the imaginary node if it was exist in the tree 
                 return node.Parent;
             }
         }
+        if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 7");
 
         if(node.Key > k)
         {
+            if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 8");
             //if the current node key is bigger then the key we look for
             //recursively call searchNode with the left child of the current node 
             return SearchNode(k,node.Left);
         }
-
+        if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 9");
         if(node.Key < k)
         {
+            if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 10");
             //if the current node key is lower then the key we look for
             //recursively call searchNode with the right child of the current node
             return SearchNode(k,node.Right);
         }
-
+        
+        if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 11");
         //if the current node key is not bigger and not lower it equals to the key we are looking for
         return node;
     }
@@ -189,6 +218,8 @@ public class RBTreeWithFaults
      */
     public int insert(int k, String v) 
     { 
+        Boolean debugging = false;
+        if(debugging) System.out.println("insert(int k, String v) -- 1");
         //find the place we want to insert the new node
         RBNode y = SearchNode(k,this.Root);
         //create new node which y is its parent
@@ -197,6 +228,7 @@ public class RBTreeWithFaults
         int counter = 0;
         if(y == null)
         {
+            if(debugging) System.out.println("insert(int k, String v) -- 2");
             //empty tree
             this.Root.Left = z;
             z.Black = true;
@@ -204,27 +236,34 @@ public class RBTreeWithFaults
         }
         else
         {
+            if(debugging) System.out.println("insert(int k, String v) -- 3");
             if(y.Key == z.Key)
             {
+                if(debugging) System.out.println("insert(int k, String v) -- 4");
                 //an item with the key k is  already exist in the tree
                 return -1;
             }
-
+            if(debugging) System.out.println("insert(int k, String v) -- 5");
             if(z.Key < y.Key)
             {
+                
+                if(debugging) System.out.println("insert(int k, String v) -- 6");
                 //z will be a left child
                 y.Left = z;
             }
             else
-            {
+            {   
+                if(debugging) System.out.println("insert(int k, String v) -- 7");
                 //z will be a right child
                 y.Right = z;
             }
-
+            
+            if(debugging) System.out.println("insert(int k, String v) -- 8");
             //calling the method that will check if the tree is valid and if not fix it
             counter = fixUpTree(z);
         }
-
+        
+        if(debugging) System.out.println("insert(int k, String v) -- 9");
         return counter;	
     }
 
@@ -235,45 +274,60 @@ public class RBTreeWithFaults
      * @param z - the node to start the fix from
      * @return the number of color changes that occured while fixing the tree
      */
+    //changed this function to public for testing purposes
     public int fixUpTree (RBNode z)
     {
+        Boolean debugging = false;
         //counter will count the number of color changes
         int counter = 0;
+        if(debugging) System.out.println("fixUpTree(RBNode z) -- 1");
         //run until there is no problem with the red rule
         while(!z.Parent.Black)
         {
+            if(debugging) System.out.println("fixUpTree(RBNode z) -- 3");
             if(z.Parent == z.Parent.Parent.Left)
             {
+                if(debugging) System.out.println("fixUpTree(RBNode z) -- 4");
                 //z parent is a left child
                 RBNode y = z.Parent.Parent.Right;
                 if(!y.Black)
                 {
+                    if(debugging) System.out.println("fixUpTree(RBNode z) -- 5");
                     //case 1: z'w parent and uncle are red
                     z.Parent.Black = true;
                     y.Black = true;
                     z.Parent.Parent.Black = false;
+
                     z = z.Parent.Parent;
 
                     //case 1 cost 3 color changes
                     counter += 3;
                 }
                 else
-                {
+                {   
+                    if(debugging) System.out.println("fixUpTree(RBNode z) -- 6");
                     if(z == z.Parent.Right)
                     {
+                        
                         //case 2: z is a right child and its uncle is red. need to left rotate
+                        // Fault see graph 1 z.Parent.Black = true; 
                         z = z.Parent;
-                        leftRotate(z);
+			leftRotate(z);
+                        
+                        if(debugging) System.out.println("fixUpTree(RBNode z) -- 7");
                     }
                     //case 3: z is a left child and its uncle is red. need to right rotate
+                    
                     z.Parent.Black = true; 
                     z.Parent.Parent.Black = false;
                     rightRotate(z.Parent.Parent);
                     counter += 2; 
+                    if(debugging) System.out.println("fixUpTree(RBNode z) -- 8");
                 }
             }
             else
             {
+                if(debugging) System.out.println("fixUpTree(RBNode z) -- 9");
                 //z parent is a right child
                 RBNode y = z.Parent.Parent.Left;
                 if(!y.Black)
@@ -286,14 +340,17 @@ public class RBTreeWithFaults
 
                     //case 1 cost 3 color changes
                     counter += 3;
+                    if(debugging) System.out.println("fixUpTree(RBNode z) -- 10");
                 }
                 else
                 {
+                    if(debugging) System.out.println("fixUpTree(RBNode z) -- 11");
                     if(z == z.Parent.Left)
                     {
                         //case 2: z is a left child and its uncle is red. need to right rotate
                         z = z.Parent;
                         rightRotate(z);
+                        if(debugging) System.out.println("fixUpTree(RBNode z) -- 12");
                     }
                     //case 3: z is a right child and its uncle is red. need to left rotate
                     z.Parent.Parent.Black = false;
@@ -302,16 +359,18 @@ public class RBTreeWithFaults
 
                     //counter++; /* Fault found! Only added for the grandparent's color change, neglecting parent's color change */
                     counter += 2;
+                    if(debugging) System.out.println("fixUpTree(RBNode z) -- 13");
                 }
             }
         }
-
+        if(debugging) System.out.println("fixUpTree(RBNode z) -- 14");
         if(!this.Root.Left.Black)
         {
             counter++;
             this.Root.Left.Black = true;
+            if(debugging) System.out.println("fixUpTree(RBNode z) -- 15");
         }
-
+        if(debugging) System.out.println("fixUpTree(RBNode z) -- 16");
         return counter;
     }
 
@@ -323,6 +382,8 @@ public class RBTreeWithFaults
      */
     public void leftChild(RBNode x,RBNode y)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("leftChild(RBNode x,RBNode y)-- 1");
         x.Left = y;
         y.Parent = x;
     }
@@ -335,6 +396,8 @@ public class RBTreeWithFaults
      */
     public void rightChild(RBNode x,RBNode y)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("rightChild(RBNode x,RBNode y) -- 1");
         x.Right = y;
         y.Parent = x;
     }
@@ -347,12 +410,16 @@ public class RBTreeWithFaults
      */
     public void transplate(RBNode x, RBNode y)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("transplate(RBNode x, RBNode y) -- 1");
         if (x == x.Parent.Left)
         {
+            if(debugging) System.out.println("transplate(RBNode x, RBNode y) -- 2");
             leftChild(x.Parent,y);
         }
         else
         {
+            if(debugging) System.out.println("transplate(RBNode x, RBNode y) -- 3");
             rightChild(x.Parent,y);
         }
     }
@@ -365,6 +432,8 @@ public class RBTreeWithFaults
      */
     public void leftRotate(RBNode x)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("leftRotate(RBNode x) -- 1");
         RBNode y = x.Right;
         transplate(x,y);
         rightChild(x,y.Left);
@@ -379,6 +448,8 @@ public class RBTreeWithFaults
      */
     public void rightRotate(RBNode y)
     {
+        Boolean debugging = false;
+        if(debugging) System.out.println("rightRotate(RBNode y)-- 1");
         RBNode x = y.Left;
         transplate(y,x);
         leftChild(y,x.Right);
@@ -396,13 +467,16 @@ public class RBTreeWithFaults
      */
     public int delete(int k)
     {	
+        Boolean debugging = true;
+        if(debugging) System.out.println("delete(int k)-- 1");
         int counter = 0;
         RBNode z = SearchNode(k, this.Root);
         if(z.Key != k){
+            if(debugging) System.out.println("delete(int k)-- 2");
             //item with the key k could not be found
             return -1;
         }
-
+        if(debugging) System.out.println("delete(int k)-- 3");
         RBNode x;
         RBNode y = z;
         boolean isBlackOriginalY = y.Black;
@@ -410,41 +484,51 @@ public class RBTreeWithFaults
         //z is the node we want to delete
         if(isNullNode(z.Left))
         {
+            if(debugging) System.out.println("delete(int k)-- 4");
             x = z.Right;
             transplate(z,z.Right);
+        
         }
         else if(isNullNode(z.Right))
         {
+            if(debugging) System.out.println("delete(int k)-- 5");
+            if(debugging) System.out.println("delete(int k)-- 6");
             x = z.Left;
             transplate(z,z.Left);
         }
         else
         {
+            if(debugging) System.out.println("delete(int k)-- 5");
+            if(debugging) System.out.println("delete(int k)-- 7");
             y = minimumNode(z.Right);
             isBlackOriginalY = y.Black;
             x = y.Right;
             if(y.Parent == z)
             {
+                if(debugging) System.out.println("delete(int k)-- 8");
                     x.Parent = y;
             }
             else
             {
+                if(debugging) System.out.println("delete(int k)-- 9");
                 transplate(y,y.Right);
                 y.Right = z.Right;
                 y.Right.Parent = y;
             }
+            if(debugging) System.out.println("delete(int k)-- 10");
             transplate(z,y);
             y.Left = z.Left;
             y.Black = z.Black;
             y.Left.Parent = y; /* Fault found! Didn't set y's left child to have y as parent */
         }
-
+        if(debugging) System.out.println("delete(int k)-- 11");
         if(isBlackOriginalY)
         {
+            if(debugging) System.out.println("delete(int k)-- 12");
             //we have a problem with the black rule that needs to be fixed
             counter = deleteFixup(x);
         }
-
+        if(debugging) System.out.println("delete(int k)-- 13");
         return counter;
     }
 
