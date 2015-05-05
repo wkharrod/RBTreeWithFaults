@@ -38,80 +38,6 @@ public class RBTreeWithFaultsTest {
     }
 
     /**
-     * Test of getRoot method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testGetRoot() {
-        System.out.println("getRoot");
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        RBTreeWithFaults.RBNode expResult = null;
-        RBTreeWithFaults.RBNode result = instance.getRoot();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of empty method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testEmpty() {
-        System.out.println("empty");
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        boolean expResult = false;
-        boolean result = instance.empty();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of search method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testSearch() {
-        System.out.println("search");
-        int k = 0;
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        String expResult = "";
-        String result = instance.search(k);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of insert method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testInsert() {
-        System.out.println("insert");
-        int k = 0;
-        String v = "";
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        int expResult = 0;
-        int result = instance.insert(k, v);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of delete method, of class RBTreeWithFaults.
-     */
-    @Test
-    public void testDelete() {
-        System.out.println("delete");
-        int k = 0;
-        RBTreeWithFaults instance = new RBTreeWithFaults();
-        int expResult = 0;
-        int result = instance.delete(k);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of deleteFixup - 1 method, of class RBTreeWithFaults.
      */
     @Test
@@ -1396,5 +1322,1189 @@ public class RBTreeWithFaultsTest {
         
         if(debugging) System.out.println("result == "+result);
         assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of fixUpTree - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testFixUpTree()
+    {
+        Boolean debugging = false;
+        System.out.println("fixUpTree - 1");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Left = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Left = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = false;
+        zParentParent.Right = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = true;
+        zParent.Left = z;
+
+        
+        int result = tree.fixUpTree(z);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 4;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        
+        assertEquals(root.Left.Value, "zParentParent");
+
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("zParentParent.Black = "+zParentParent.Black);
+        assertEquals(zParentParent.Black, true);
+        if(debugging) System.out.println("zParentParent.Left.Value = "+zParentParent.Left.Value);
+        if(debugging) System.out.println("zParent.Right.Value = "+zParentParent.Right.Value);
+        assertEquals(zParentParent.Left.Value, "zParent");
+        assertEquals(zParentParent.Right.Value, "y");
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParentParent.Parent.Value, "root");
+ 
+        if(debugging) System.out.println("zParent.Black = "+zParent.Black);
+        assertEquals(zParent.Black, true);
+        if(debugging) System.out.println("zParent.Left.Value = "+zParent.Left.Value);
+        assertEquals(zParent.Left.Value, "z");
+
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParent.Parent.Value, "zParentParent");
+       
+        if(debugging) System.out.println("z.Black = "+z.Black);
+        assertEquals(z.Black, true);
+
+        if(debugging) System.out.println("z.Parent = "+z.Parent.Value);
+        assertEquals(z.Parent.Value, "zParent");
+        
+        if(debugging) System.out.println("y.Black = "+y.Black);
+        assertEquals(y.Black, true);
+
+        if(debugging) System.out.println("y.Parent = "+y.Parent.Value);
+        assertEquals(y.Parent.Value, "zParentParent");
+        
+    }
+    
+    /**
+     * Test of fixUpTree - 3 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testFixUpTree3()
+    {
+        Boolean debugging = false;
+        System.out.println("fixUpTree - 3");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Left = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Left = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Right = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = true;
+        zParent.Right = z;
+
+        
+        int result = tree.fixUpTree(z);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 2;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        assertEquals(root.Left.Value, "z");
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("zParentParent.Black = "+zParentParent.Black);
+        assertEquals(zParentParent.Black, false);
+        if(debugging) System.out.println("zParentParent.Left.Value = "+zParentParent.Left.Value);
+        if(debugging) System.out.println("zParentParent.Right.Value = "+zParentParent.Right.Value);
+        assertEquals(zParentParent.Right.Value, "y");
+        assertEquals(zParentParent.Left.Value, "N");
+        if(debugging) System.out.println("zParentParent.Parent = "+zParentParent.Parent.Value);
+        assertEquals(zParentParent.Parent.Value, "z");
+ 
+        
+        if(debugging) System.out.println("zParent.Black = "+zParent.Black);
+        assertEquals(zParent.Black, false);
+        if(debugging) System.out.println("zParent.Left.Value = "+zParent.Left.Value);
+        if(debugging) System.out.println("zParent.Right.Value = "+zParent.Right.Value);
+        assertEquals(zParent.Right.Value, "N");
+        assertEquals(zParent.Left.Value, "N");
+
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParent.Parent.Value, "z");
+       
+        if(debugging) System.out.println("z.Black = "+z.Black);
+        assertEquals(z.Black, true);
+        if(debugging) System.out.println("z.Left.Value = "+z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+z.Right.Value);
+        assertEquals(z.Right.Value, "zParentParent");
+        assertEquals(z.Left.Value, "zParent");
+        if(debugging) System.out.println("z.Parent = "+z.Parent.Value);
+        assertEquals(z.Parent.Value, "root");
+        
+        if(debugging) System.out.println("y.Black = "+y.Black);
+        assertEquals(y.Black, true);
+
+        if(debugging) System.out.println("y.Parent = "+y.Parent.Value);
+        assertEquals(y.Parent.Value, "zParentParent");
+        
+    }
+    /**
+    * Test of fixUpTree - 2 method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testFixUpTree2()
+    {
+        Boolean debugging = false;
+        System.out.println("fixUpTree - 2");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Left = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Left = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Right = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = true;
+        zParent.Left = z;
+
+        
+        int result = tree.fixUpTree(z);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 2;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        assertEquals(root.Left.Value, "zParent");
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("zParentParent.Black = "+zParentParent.Black);
+        assertEquals(zParentParent.Black, false);
+        if(debugging) System.out.println("zParentParent.Left.Value = "+zParentParent.Left.Value);
+        if(debugging) System.out.println("zParentParent.Right.Value = "+zParentParent.Right.Value);
+        assertEquals(zParentParent.Right.Value, "y");
+        assertEquals(zParentParent.Left.Value, "N");
+        if(debugging) System.out.println("zParentParent.Parent = "+zParentParent.Parent.Value);
+        assertEquals(zParentParent.Parent.Value, "zParent");
+ 
+        
+        if(debugging) System.out.println("zParent.Black = "+zParent.Black);
+        assertEquals(zParent.Black, true);
+        if(debugging) System.out.println("zParent.Left.Value = "+zParent.Left.Value);
+        if(debugging) System.out.println("zParent.Right.Value = "+zParent.Right.Value);
+        assertEquals(zParent.Right.Value, "zParentParent");
+        assertEquals(zParent.Left.Value, "z");
+
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParent.Parent.Value, "root");
+       
+        if(debugging) System.out.println("z.Black = "+z.Black);
+        assertEquals(z.Black, true);
+        if(debugging) System.out.println("z.Left.Value = "+z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+z.Right.Value);
+        assertEquals(z.Right.Value, "N");
+        assertEquals(z.Left.Value, "N");
+        if(debugging) System.out.println("z.Parent = "+z.Parent.Value);
+        assertEquals(z.Parent.Value, "zParent");
+        
+        if(debugging) System.out.println("y.Black = "+y.Black);
+        assertEquals(y.Black, true);
+
+        if(debugging) System.out.println("y.Parent = "+y.Parent.Value);
+        assertEquals(y.Parent.Value, "zParentParent");
+        
+    }
+    
+    /**
+     * Test of fixUpTree - 4 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testFixUpTree4()
+    {
+        Boolean debugging = false;
+        System.out.println("fixUpTree - 4");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Left = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = false;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = true;
+        zParent.Right = z;
+
+        
+        int result = tree.fixUpTree(z);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 4;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        assertEquals(root.Left.Value, "zParentParent");
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Right.Value, "N");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("zParentParent.Black = "+zParentParent.Black);
+        assertEquals(zParentParent.Black, true);
+        if(debugging) System.out.println("zParentParent.Left.Value = "+zParentParent.Left.Value);
+        if(debugging) System.out.println("zParentParent.Right.Value = "+zParentParent.Right.Value);
+        assertEquals(zParentParent.Right.Value, "zParent");
+        assertEquals(zParentParent.Left.Value, "y");
+        if(debugging) System.out.println("zParentParent.Parent = "+zParentParent.Parent.Value);
+        assertEquals(zParentParent.Parent.Value, "root");
+ 
+        
+        if(debugging) System.out.println("zParent.Black = "+zParent.Black);
+        assertEquals(zParent.Black, true);
+        if(debugging) System.out.println("zParent.Left.Value = "+zParent.Left.Value);
+        if(debugging) System.out.println("zParent.Right.Value = "+zParent.Right.Value);
+        assertEquals(zParent.Right.Value, "z");
+        assertEquals(zParent.Left.Value, "N");
+
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParent.Parent.Value, "zParentParent");
+       
+        if(debugging) System.out.println("z.Black = "+z.Black);
+        assertEquals(z.Black, true);
+        if(debugging) System.out.println("z.Left.Value = "+z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+z.Right.Value);
+        assertEquals(z.Right.Value, "N");
+        assertEquals(z.Left.Value, "N");
+        if(debugging) System.out.println("z.Parent = "+z.Parent.Value);
+        assertEquals(z.Parent.Value, "zParent");
+        
+        if(debugging) System.out.println("y.Black = "+y.Black);
+        assertEquals(y.Black, true);
+
+        if(debugging) System.out.println("y.Parent = "+y.Parent.Value);
+        assertEquals(y.Parent.Value, "zParentParent");
+        
+    }
+    
+        /**
+     * Test of fixUpTree - 5 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testFixUpTree5()
+    {
+        Boolean debugging = false;
+        System.out.println("fixUpTree - 5");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Right = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = false;
+        zParent.Left = z;
+
+        
+        int result = tree.fixUpTree(z);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 2;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        assertEquals(root.Left.Value, "N");
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Right.Value, "z");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("zParentParent.Black = "+zParentParent.Black);
+        assertEquals(zParentParent.Black, false);
+        if(debugging) System.out.println("zParentParent.Left.Value = "+zParentParent.Left.Value);
+        if(debugging) System.out.println("zParentParent.Right.Value = "+zParentParent.Right.Value);
+        assertEquals(zParentParent.Right.Value, "N");
+        assertEquals(zParentParent.Left.Value, "y");
+        if(debugging) System.out.println("zParentParent.Parent = "+zParentParent.Parent.Value);
+        assertEquals(zParentParent.Parent.Value, "z");
+ 
+        
+        if(debugging) System.out.println("zParent.Black = "+zParent.Black);
+        assertEquals(zParent.Black, false);
+        if(debugging) System.out.println("zParent.Left.Value = "+zParent.Left.Value);
+        if(debugging) System.out.println("zParent.Right.Value = "+zParent.Right.Value);
+        assertEquals(zParent.Right.Value, "N");
+        assertEquals(zParent.Left.Value, "N");
+
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParent.Parent.Value, "z");
+       
+        if(debugging) System.out.println("z.Black = "+z.Black);
+        assertEquals(z.Black, true);
+        if(debugging) System.out.println("z.Left.Value = "+z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+z.Right.Value);
+        assertEquals(z.Right.Value, "zParent");
+        assertEquals(z.Left.Value, "zParentParent");
+        if(debugging) System.out.println("z.Parent = "+z.Parent.Value);
+        assertEquals(z.Parent.Value, "root");
+        
+        if(debugging) System.out.println("y.Black = "+y.Black);
+        assertEquals(y.Black, true);
+
+        if(debugging) System.out.println("y.Parent = "+y.Parent.Value);
+        assertEquals(y.Parent.Value, "zParentParent");
+        
+    }
+    
+            /**
+     * Test of fixUpTree - 6 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testFixUpTree6()
+    {
+        Boolean debugging = false;
+        System.out.println("fixUpTree - 6");
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Right = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = false;
+        zParent.Right = z;
+
+        
+        int result = tree.fixUpTree(z);
+        
+        if(debugging) System.out.println("result = "+result);
+        int expResult = 2;
+        assertEquals(expResult, result);
+        
+        if(debugging) System.out.println("tree.Root.Value = "+tree.Root.Value);
+        assertEquals(tree.Root.Value, "root");
+        
+        if(debugging) System.out.println("root.Black = "+root.Black);
+        assertEquals(root.Black, true);
+        if(debugging) System.out.println("root.Left.Value = "+root.Left.Value);
+        assertEquals(root.Left.Value, "N");
+        if(debugging) System.out.println("root.Right.Value = "+root.Right.Value);
+        assertEquals(root.Right.Value, "zParent");
+        if(debugging) System.out.println("root.Parent = null");
+        assertEquals(root.Parent, null);
+        
+        if(debugging) System.out.println("zParentParent.Black = "+zParentParent.Black);
+        assertEquals(zParentParent.Black, false);
+        if(debugging) System.out.println("zParentParent.Left.Value = "+zParentParent.Left.Value);
+        if(debugging) System.out.println("zParentParent.Right.Value = "+zParentParent.Right.Value);
+        assertEquals(zParentParent.Right.Value, "N");
+        assertEquals(zParentParent.Left.Value, "y");
+        if(debugging) System.out.println("zParentParent.Parent = "+zParentParent.Parent.Value);
+        assertEquals(zParentParent.Parent.Value, "zParent");
+ 
+        
+        if(debugging) System.out.println("zParent.Black = "+zParent.Black);
+        assertEquals(zParent.Black, true);
+        if(debugging) System.out.println("zParent.Left.Value = "+zParent.Left.Value);
+        if(debugging) System.out.println("zParent.Right.Value = "+zParent.Right.Value);
+        assertEquals(zParent.Right.Value, "z");
+        assertEquals(zParent.Left.Value, "zParentParent");
+
+        if(debugging) System.out.println("zParent.Parent = "+zParent.Parent.Value);
+        assertEquals(zParent.Parent.Value, "root");
+       
+        if(debugging) System.out.println("z.Black = "+z.Black);
+        assertEquals(z.Black, false);
+        if(debugging) System.out.println("z.Left.Value = "+z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+z.Right.Value);
+        assertEquals(z.Right.Value, "N");
+        assertEquals(z.Left.Value, "N");
+        if(debugging) System.out.println("z.Parent = "+z.Parent.Value);
+        assertEquals(z.Parent.Value, "zParent");
+        
+        if(debugging) System.out.println("y.Black = "+y.Black);
+        assertEquals(y.Black, true);
+
+        if(debugging) System.out.println("y.Parent = "+y.Parent.Value);
+        assertEquals(y.Parent.Value, "zParentParent");
+        
+    }
+    /**
+     * Test of getRoot() method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testGetRoot() {
+        System.out.println("getRoot - 1");
+        Boolean debugging = false;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", 0, null);
+        
+        
+        RBTreeWithFaults.RBNode testRoot = tree.getRoot();
+        
+        if(debugging) System.out.println("root left "+ root.Left);
+        assertEquals(tree.Root.Left, testRoot);
+      
+    }
+    
+     /**
+     * Test of RBTreeWithFaults() - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testRBTreeWithFaults() {
+        System.out.println("RBTreeWithFaults - 1");
+        Boolean debugging = false;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+       
+        if(debugging) System.out.println("tree = "+ tree.Root.Value);
+        
+        assertTrue(!tree.Root.Value.isEmpty());
+      
+    }
+   
+     
+     /**
+     * Test of RBTreeWithFaults(RBNode root) - 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testRBTreeWithFaults2() {
+        System.out.println("RBTreeWithFaults2 - 1");
+        Boolean debugging = false;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", 0, null);
+        //test
+        RBTreeWithFaults tree2 = new RBTreeWithFaults(root);
+        if(debugging) System.out.println("tree = "+ tree2.Root.Left.Value);
+        
+        assertTrue(!tree2.getRoot().Value.isEmpty());
+      
+    }
+     /**
+     * Test of  createInfinityNode(RBNode leftchild) -1 1 method, of class RBTreeWithFaults.
+     */
+    @Test
+    public void testcreateInfinityNode() {
+        System.out.println("createInfinityNode - 1");
+        Boolean debugging = false;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", 0, null);
+        //test
+        RBTreeWithFaults tree2 = new RBTreeWithFaults(root);
+        RBTreeWithFaults.RBNode node = tree2.new RBNode("node", 1, null);
+        RBTreeWithFaults.RBNode infinityNode =  tree2.createInfinityNode(node);
+     
+        if(debugging) System.out.println("infinityNode.key == Integer.MAX_VALUE = "+ (infinityNode.Key == Integer.MAX_VALUE) );
+        
+        assertTrue((infinityNode.Key == Integer.MAX_VALUE));
+      
+    }
+    
+    /**
+    * Test of  createNullNode(RBNode parent) - 1 method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testcreateNullNode() {
+        System.out.println("createNullNode - 1");
+        Boolean debugging = false;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", 0, null);
+        
+     
+        if(debugging) System.out.println("root.left = "+ root.Left.Value);
+        if(debugging) System.out.println("root.Right = "+ root.Right.Value);
+        assertEquals(root.Right.Value, "N");
+        assertEquals(root.Left.Value, "N");
+      
+    }
+    
+    /**
+    * Test of  empty() - 1 method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testempty() {
+        System.out.println("empty - 1");
+        Boolean debugging = false;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        
+     
+        if(debugging) System.out.println("tree.empty() = "+ tree.empty());
+
+        assertTrue(tree.empty());
+      
+    }
+    
+    /**
+    * Test of search(int k) - 1 method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testSearch() {
+        System.out.println("search - 1");
+        Boolean debugging = false;
+       
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        
+        if(debugging) System.out.println("tree.search(8) = "+ tree.search(8));
+        assertEquals(tree.search(8), null);
+        
+    }
+    /**
+    * Test of search(int k) - 2 method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testSearch2() {
+        System.out.println("search - 2");
+        Boolean debugging = false;
+       
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Right = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = false;
+        zParent.Right = z;
+        
+        if(debugging) System.out.println("tree.search(8) = "+ tree.search(8));
+        assertEquals(tree.search(8), null);
+        
+    }
+    
+    /**
+    * Test of search(int k) - 3 method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testSearch3() {
+        System.out.println("search - 3");
+        Boolean debugging = false;
+       
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Right = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = false;
+        zParent.Right = z;
+        
+        if(debugging) System.out.println("tree.search(2) = "+ zParentParent.Value);
+        assertEquals(tree.search(2), zParentParent.Value);
+        
+    }
+    /**
+    * Test of SearchNode(int k,RBNode node) - 2  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testSearchNode2() {
+        System.out.println("SearchNode - 2");
+        Boolean debugging = false;
+       
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root.Left = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Right = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = false;
+        zParent.Right = z;
+        
+        if(debugging) System.out.println("tree.SearchNode(0,tree.Root).Value = "+ tree.SearchNode(0,tree.Root).Value);
+        assertEquals(tree.SearchNode(0,tree.Root).Value, root.Value);
+        
+    }
+    /**
+    * Test of SearchNode(int k,RBNode node) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testSearchNode() {
+        System.out.println("SearchNode - 1");
+        Boolean debugging = false;
+       
+        int i=1;
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root.Left = root;
+        
+        RBTreeWithFaults.RBNode zParentParent = tree.new RBNode("zParentParent", i++, root);
+        zParentParent.Black = false;
+        root.Right = zParentParent;
+
+        
+        RBTreeWithFaults.RBNode zParent = tree.new RBNode("zParent", i++, zParentParent);
+        zParent.Black = false;
+        zParentParent.Right = zParent;
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y",i++,zParentParent);
+        y.Black = true;
+        zParentParent.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, zParent);
+        z.Black = false;
+        zParent.Right = z;
+        
+        if(debugging) System.out.println("tree.SearchNode(2,tree.Root) = ");
+        assertEquals(tree.SearchNode(2,tree.Root), zParentParent);
+        
+    }
+    /**
+    * Test of insert(int k, String v) - 2  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testInsert2() {
+        System.out.println("insert - 2");
+        Boolean debugging = false;
+       
+       
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        int hi = tree.insert(1, "Hi");
+        int hola = tree.insert(3, "Hola");
+        int oi = tree.insert(2,"oi");
+      
+        
+        if(debugging) System.out.println("tree.Root = "+ tree.getRoot().Value);
+        if(debugging) System.out.println("tree.Left = "+ tree.Root.Left.Key);
+        if(debugging) System.out.println("tree.Root = "+ tree.Root.Left.Right.Value);
+        if(debugging) System.out.println("tree.Left = "+ tree.Root.Left.Right.Key);
+        if(debugging) System.out.println("tree.Root = "+ tree.Root.Left.Left.Value);
+        if(debugging) System.out.println("tree.Left = "+ tree.Root.Left.Left.Key);
+        RBTreeWithFaults.RBNode first = tree.Root.Left;
+        RBTreeWithFaults.RBNode second = tree.Root.Left.Right;
+        RBTreeWithFaults.RBNode third = tree.Root.Left.Left;
+        
+        assertEquals(third.Value, "Hi" );
+        assertEquals(first.Value, "oi" );  
+        assertEquals(second.Value, "Hola" ); 
+    }
+    
+    /**
+    * Test of insert(int k, String v) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testInsert() {
+        System.out.println("insert - 1");
+        Boolean debugging = false;
+       
+       
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        int hi = tree.insert(1, "Hi");
+        int hola = tree.insert(1, "Hola");
+      
+        
+        if(debugging) System.out.println("tree.Root = "+ tree.Root.Value);
+        if(debugging) System.out.println("tree.Left = "+ tree.Root.Left.Key);
+
+        assertEquals(hola, -1);
+        
+    }
+    
+        /**
+    * Test of leftChild(RBNode x,RBNode y) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testLeftChild() {
+        System.out.println("leftChild- 1");
+        Boolean debugging = false;
+        
+         RBTreeWithFaults tree = new RBTreeWithFaults();
+        tree.insert(2, "Hi");
+        tree.insert(3, "Hola");
+        tree.insert(1,"oi");
+        
+        
+        if(debugging) System.out.println("tree.Root.Left.Value) = "+ tree.Root.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Key = "+ tree.Root.Left.Key);
+        if(debugging) System.out.println("tree.Root.Left.Right.Value = "+ tree.Root.Left.Right.Value);
+        if(debugging) System.out.println(" tree.Root.Left.Right.Key = "+ tree.Root.Left.Right.Key);
+        if(debugging) System.out.println("tree.Root.Left.Left.Value = "+ tree.Root.Left.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Left.Key = "+ tree.Root.Left.Left.Key);
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", 7, null);
+        z.Black = true;
+        RBTreeWithFaults.RBNode p = tree.Root.Left.Left;
+        tree.leftChild(p, z);
+        assertEquals(p.Left.Value, "z");
+    }
+    
+        /**
+    * Test of rightChild(RBNode x,RBNode y) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testRighttChild() {
+        System.out.println("rightChild- 1");
+        Boolean debugging = false;
+        
+         RBTreeWithFaults tree = new RBTreeWithFaults();
+        tree.insert(2, "Hi");
+        tree.insert(3, "Hola");
+        tree.insert(1,"oi");
+        
+        
+        if(debugging) System.out.println("tree.Root.Left.Value) = "+ tree.Root.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Key = "+ tree.Root.Left.Key);
+        if(debugging) System.out.println("tree.Root.Left.Right.Value = "+ tree.Root.Left.Right.Value);
+        if(debugging) System.out.println(" tree.Root.Left.Right.Key = "+ tree.Root.Left.Right.Key);
+        if(debugging) System.out.println("tree.Root.Left.Left.Value = "+ tree.Root.Left.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Left.Key = "+ tree.Root.Left.Left.Key);
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", 7, null);
+        z.Black = true;
+        RBTreeWithFaults.RBNode p = tree.Root.Left.Left;
+        tree.rightChild(p, z);
+        assertEquals(p.Right.Value, "z");
+    }
+    
+    /**
+    * Test of transplate(RBNode x, RBNode y)) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testTransplate() {
+        System.out.println("transplate - 1");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        int i = 1;
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root.Left = root;
+        
+        RBTreeWithFaults.RBNode x = tree.new RBNode("x", i++, root);
+        x.Black = false;
+        root.Left = x;
+
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y", i++, null);
+        y.Black = false;
+        
+        tree.transplate(x,y);
+        
+        if(debugging) System.out.println("tree.Root.Left.Value) = "+ tree.Root.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Key = "+ tree.Root.Left.Key);
+        if(debugging) System.out.println("tree.Root.Left.Right.Value = "+ tree.Root.Left.Right.Value);
+        if(debugging) System.out.println(" tree.Root.Left.Right.Key = "+ tree.Root.Left.Right.Key);
+        if(debugging) System.out.println("tree.Root.Left.Left.Value = "+ tree.Root.Left.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Left.Key = "+ tree.Root.Left.Left.Key);
+        
+        
+        assertEquals(root.Left.Value, "y");
+    }
+    
+    /**
+    * Test of transplate(RBNode x, RBNode y)) - 2  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testTransplate2() {
+        System.out.println("transplate - 2");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        int i = 1;
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root.Left = root;
+        
+        RBTreeWithFaults.RBNode x = tree.new RBNode("x", i++, root);
+        x.Black = false;
+        root.Right = x;
+
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y", i++, null);
+        y.Black = false;
+        
+        tree.transplate(x,y);
+        
+        if(debugging) System.out.println("tree.Root.Left.Value) = "+ tree.Root.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Key = "+ tree.Root.Left.Key);
+        if(debugging) System.out.println("tree.Root.Left.Right.Value = "+ tree.Root.Left.Right.Value);
+        if(debugging) System.out.println("tree.Root.Left.Right.Key = "+ tree.Root.Left.Right.Key);
+        if(debugging) System.out.println("tree.Root.Left.Left.Value = "+ tree.Root.Left.Left.Value);
+        if(debugging) System.out.println("tree.Root.Left.Left.Key = "+ tree.Root.Left.Left.Key);
+        
+        
+        assertEquals(root.Right.Value, "y");
+    }
+    /**
+    * Test of leftRotate(RBNode x) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testLeftRotate() {
+        System.out.println("leftRotate - 1");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        int i = 1;
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root.Left = root;
+        
+        RBTreeWithFaults.RBNode x = tree.new RBNode("x", i++, root);
+        x.Black = true;
+        root.Left = x;
+
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y", i++, x);
+        y.Black = true;
+        x.Right = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, y);
+        z.Black = true;
+        y.Right = z;
+        
+        tree.leftRotate(x);
+        
+        if(debugging) System.out.println("root.Left.Value = "+ root.Left.Value  );
+        if(debugging) System.out.println("root.Right.Value = "+ root.Right.Value);
+        if(debugging) System.out.println("x.Right.Value = "+ x.Right.Value);
+        if(debugging) System.out.println("x.Left.Value = "+ x.Left.Value);
+        if(debugging) System.out.println("y.Left.Value = "+ y.Left.Value);
+        if(debugging) System.out.println("y.Right.Value = "+ y.Right.Value);
+        if(debugging) System.out.println("z.Left.Value = "+ z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+ z.Right.Value);
+        
+        assertEquals(root.Left.Value, "y");
+        assertEquals(y.Left.Value, "x");
+        assertEquals(y.Right.Value, "z");
+    }
+    
+    /**
+    * Test of rightRotate(RBNode x) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testRightRotate() {
+        System.out.println("rightRotate - 1");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+        int i = 1;
+        
+        RBTreeWithFaults.RBNode root = tree.new RBNode("root", i++, null);
+        root.Black = true;
+        tree.Root.Left = root;
+        
+        RBTreeWithFaults.RBNode x = tree.new RBNode("x", i++, root);
+        x.Black = true;
+        root.Right = x;
+
+        
+        RBTreeWithFaults.RBNode y = tree.new RBNode("y", i++, x);
+        y.Black = true;
+        x.Left = y;
+        
+        RBTreeWithFaults.RBNode z = tree.new RBNode("z", i++, y);
+        z.Black = true;
+        y.Left = z;
+        
+        tree.rightRotate(x);
+        
+        if(debugging) System.out.println("root.Left.Value = "+ root.Left.Value  );
+        if(debugging) System.out.println("root.Right.Value = "+ root.Right.Value);
+        if(debugging) System.out.println("x.Right.Value = "+ x.Right.Value);
+        if(debugging) System.out.println("x.Left.Value = "+ x.Left.Value);
+        if(debugging) System.out.println("y.Left.Value = "+ y.Left.Value);
+        if(debugging) System.out.println("y.Right.Value = "+ y.Right.Value);
+        if(debugging) System.out.println("z.Left.Value = "+ z.Left.Value);
+        if(debugging) System.out.println("z.Right.Value = "+ z.Right.Value);
+        
+        assertEquals(root.Right.Value, "y");
+        assertEquals(y.Left.Value, "z");
+        assertEquals(y.Right.Value, "x");
+    }
+    
+        /**
+    * Test of delete(int k) - 1  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testDelete() {
+        System.out.println("delete - 1");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+
+        
+        tree.insert(1, "a");
+        tree.insert(2, "b");
+        tree.insert(3, "c");
+        tree.insert(4, "d");
+        tree.insert(5, "e");
+        tree.insert(6, "f");
+        tree.insert(7, "g");
+        
+        int result = tree.delete(9);
+        if(debugging) System.out.println("result = "+ result);
+        
+        assertEquals(result, -1);
+        
+    }
+    
+    /**
+    * Test of delete(int k) - 4  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testDelete4() {
+        System.out.println("delete - 4");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+
+        
+        tree.insert(1, "a");
+        tree.insert(2, "b");
+        tree.insert(3, "c");
+        tree.insert(4, "d");
+        tree.insert(5, "e");
+        tree.insert(6, "f");
+        tree.insert(7, "g");
+        
+        int result = tree.delete(2);
+        if(debugging) System.out.println("result = "+ result);
+        
+        assertEquals(result, 1);
+        
+    }
+    
+    /**
+    * Test of delete(int k) - 3  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testDelete3() {
+        System.out.println("delete - 3");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+
+        tree.insert(4, "d");
+        tree.insert(1, "a");
+        tree.insert(2, "b");
+        tree.insert(3, "c");
+        
+        
+        
+        int result = tree.delete(4);
+        if(debugging) System.out.println("result = "+ result);
+        
+        assertEquals(result, 1);
+        
+    }
+    
+    /**
+    * Test of delete(int k) - 2  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testDelete2() {
+        System.out.println("delete - 2");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+
+        tree.insert(1, "a");
+        tree.insert(2, "b");
+        tree.insert(3, "c");
+        tree.insert(4, "d");
+        tree.insert(5, "e");
+        tree.insert(6, "f");
+        tree.insert(7, "g");
+        
+        
+        
+        
+        int result = tree.delete(7);
+        if(debugging) System.out.println("result = "+ result);
+        
+        assertEquals(result, 0);
+        
+    }
+    
+    /**
+    * Test of delete(int k) - 5  method, of class RBTreeWithFaults.
+    */
+    @Test
+    public void testDelete5() {
+        System.out.println("delete - 2");
+        Boolean debugging = false;
+        
+        RBTreeWithFaults tree = new RBTreeWithFaults();
+
+        tree.insert(1, "a");
+        tree.insert(2, "b");
+        tree.insert(3, "c");
+        tree.insert(4, "d");
+        tree.insert(5, "e");
+        tree.insert(6, "f");
+        tree.insert(7, "g");
+        
+        
+        
+        
+        int result = tree.delete(6);
+        if(debugging) System.out.println("result = "+ result);
+        
+        assertEquals(result, 0);
+        
     }
 }
