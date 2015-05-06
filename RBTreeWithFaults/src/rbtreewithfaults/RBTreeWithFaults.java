@@ -38,8 +38,6 @@ public class RBTreeWithFaults
      */
     public RBTreeWithFaults()
     {
-        Boolean debugging = false;
-        if(debugging) System.out.println("RBTreeWithFaults() -- 1");
         this.Root = createInfinityNode();
     }
 
@@ -50,8 +48,6 @@ public class RBTreeWithFaults
      */
     public RBTreeWithFaults(RBNode root)
     {
-        Boolean debugging = false;
-        if(debugging) System.out.println("RBTreeWithFaults(RBNode root) -- 2");
         this.Root = createInfinityNode(root);;
     }
 
@@ -63,7 +59,7 @@ public class RBTreeWithFaults
     public RBNode createInfinityNode()
     {
         Boolean debugging = false;
-        if(debugging) System.out.println("RBTreeWithFaults(RBNode root) -- 2");
+        if(debugging) System.out.println("createInfinityNode() -- 1");
         return createInfinityNode(createNullNode(null));
     }
 
@@ -167,6 +163,7 @@ public class RBTreeWithFaults
             if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 2");
             return SearchNode(k,node.Left);
         }
+        
         if(debugging) System.out.println("SearchNode(int k,RBNode node) -- 3");
         if(isNullNode(node))
         {
@@ -467,7 +464,7 @@ public class RBTreeWithFaults
      */
     public int delete(int k)
     {	
-        Boolean debugging = true;
+        Boolean debugging = false;
         if(debugging) System.out.println("delete(int k)-- 1");
         int counter = 0;
         RBNode z = SearchNode(k, this.Root);
@@ -491,18 +488,20 @@ public class RBTreeWithFaults
         }
         else if(isNullNode(z.Right))
         {
-            if(debugging) System.out.println("delete(int k)-- 5");
+            if(debugging) System.out.println("delete(int k)-- 5"); /* couldn't put if in the conditional */
             if(debugging) System.out.println("delete(int k)-- 6");
             x = z.Left;
             transplate(z,z.Left);
         }
         else
         {
-            if(debugging) System.out.println("delete(int k)-- 5");
+            if(debugging) System.out.println("delete(int k)-- 5"); /* couldn't put if in the conditional */
             if(debugging) System.out.println("delete(int k)-- 7");
             y = minimumNode(z.Right);
             isBlackOriginalY = y.Black;
             x = y.Right;
+            
+            if(debugging) System.out.println("y == "+y.Value);
             if(y.Parent == z)
             {
                 if(debugging) System.out.println("delete(int k)-- 8");
